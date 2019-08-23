@@ -27,7 +27,6 @@ module.exports = function ({ app, Restaurants, utils: { handleRating } }) {
 
 	app.post("/api/restaurant/rating", async (req, res) => {
 		try {
-			//Query: keyword
 			const { name, value } = req.body;
 			if (name && value) {
 

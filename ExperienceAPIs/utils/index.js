@@ -12,5 +12,20 @@ module.exports = {
 			}
 		}
 		throw new Error("Invalid Value")
-	}
+	},
+	calculatePrice: (cart = []) => {
+		let price = {
+			total: 0,
+			promotion: -0,
+			delivery: 49,
+		};
+
+		cart.forEach(({ item, quantity }) => {
+			price.total += (item.price * quantity)
+		});
+
+		if (price.total > 200) price.delivery = 0;
+		return price;
+	},
+
 }
