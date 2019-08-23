@@ -1,4 +1,4 @@
-module.exports = function ({ app, Restaurants }) {
+module.exports = function ({ app, Restaurants, utils: { handleRating } }) {
 	app.get("/api/restaurant/search", async (req, res) => {
 		//Query: keyword
 		const { keyword } = req.query;
@@ -23,6 +23,22 @@ module.exports = function ({ app, Restaurants }) {
 			return res.send(filtered);
 		}
 		return res.send(Restaurants);
+	});
+
+	app.post("/api/restaurant/rating", async (req, res) => {
+		//Query: keyword
+		const { name, value } = req.body;
+		if (name && value) {
+
+			Restaurants.filter(restaurant => {
+				if (restaurant.name.toLowerCase() === name.toLowerCase()) {
+					restaurant.ratings = handleRating(restaurant.ratings, value);
+				}
+			});
+
+			return res.send({ message: "Thanks for your ratings!" });
+		}
+		return res.status(400).send({ message: "name / value missing as a body parameter" });
 	});
 
 };

@@ -15,8 +15,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// search router
-require("./routes/search")({ app, Restaurants });
-require("./routes/rating")({ app, Restaurants, utils });
+// Restaurants
+require("./routes/restaurant")({ app, Restaurants, utils });
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
