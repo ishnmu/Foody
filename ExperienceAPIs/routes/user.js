@@ -1,10 +1,12 @@
 const { debit } = require("../externalServices/payment");
 
-module.exports = function ({ app, uuid, User, utils: { calculatePrice } }) {
-	const Restaurants = require("../data/Restaurants");
+module.exports = function ({ app, uuid, User, Restaurants, utils: { calculatePrice } }) {
+
+	// Cart
 	app.get("/api/user/cart/item", async (req, res) => {
 		return res.send(User.cart);
 	});
+
 	app.put("/api/user/cart/item", async (req, res) => {
 		//Body: keyword
 		const { item: { restaurantId, dishId }, quantity } = req.body;
@@ -31,6 +33,7 @@ module.exports = function ({ app, uuid, User, utils: { calculatePrice } }) {
 		}
 		return res.status(400).send({ message: "Item properties are missing" });
 	});
+
 	app.delete("/api/user/cart/item/:id", async (req, res) => {
 		//Body: keyword
 		const { id } = req.params;
@@ -50,9 +53,11 @@ module.exports = function ({ app, uuid, User, utils: { calculatePrice } }) {
 		return res.status(400).send({ message: "id missing" });
 	});
 
+	// Order
 	app.get("/api/user/order", async (req, res) => {
 		return res.send(User.orders);
 	});
+
 	app.put("/api/user/order/place", async (req, res) => {
 		let { address } = req.body;
 		if (!address) {
@@ -93,6 +98,7 @@ module.exports = function ({ app, uuid, User, utils: { calculatePrice } }) {
 
 				if (order.length == 1) {
 					const txnResult = await debit(order[0].price.total, mode, context);
+					User.cart = [] //Resetting
 					return res.send({ message: "Order Placed", order, txn: txnResult.data });
 				}
 				return res.send({ message: "Order not found" });

@@ -19,6 +19,6 @@ app.use(bodyParser.json());
 
 // Restaurants
 require("./routes/restaurant")({ app, Restaurants, utils });
-require("./routes/user")({ app, User, uuid, utils });
+require("./routes/user")({ app, User, Restaurants, uuid, utils });
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));

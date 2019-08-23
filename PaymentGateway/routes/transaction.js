@@ -1,9 +1,11 @@
 const TransactionEntity = require("../model/TransactionEntity")
 module.exports = function ({ app, uuid, Transactions = [] }) {
-	//const Transactions = require("../data/Transactions")
+
+	// Transactions
 	app.get("/api/transaction", async (req, res) => {
 		return res.send(Transactions);
 	});
+
 	app.get("/api/transaction/:id", async (req, res) => {
 
 		const { id } = req.params;
@@ -20,6 +22,7 @@ module.exports = function ({ app, uuid, Transactions = [] }) {
 		}
 		return res.status(400).send({ message: "id missing" });
 	});
+
 	app.post("/api/transaction/debit", async (req, res) => {
 		try {
 			const { amount, mode, context } = req.body;

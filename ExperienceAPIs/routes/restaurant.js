@@ -1,4 +1,6 @@
 module.exports = function ({ app, Restaurants, utils: { handleRating } }) {
+
+	// Search
 	app.get("/api/restaurant/search", async (req, res) => {
 		//Query: keyword
 		const { keyword } = req.query;
@@ -25,6 +27,7 @@ module.exports = function ({ app, Restaurants, utils: { handleRating } }) {
 		return res.send(Restaurants);
 	});
 
+	// Rating
 	app.post("/api/restaurant/rating", async (req, res) => {
 		try {
 			const { name, value } = req.body;
