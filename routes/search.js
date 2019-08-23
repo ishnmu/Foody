@@ -1,5 +1,5 @@
 module.exports = function ({ app, Restaurants }) {
-	app.get("/api/search", async (req, res) => {
+	app.get("/api/restaurant/search", async (req, res) => {
 		//Query: keyword
 		const { keyword } = req.query;
 		let filtered = []; // results matching the query
