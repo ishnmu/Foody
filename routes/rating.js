@@ -1,6 +1,4 @@
-module.exports = function ({ app }) {
-	const Restaurants = require("../data/Restaurants");
-	const handleRating = require("../utils").handleRating;
+module.exports = function ({ app, Restaurants, utils: { handleRating } }) {
 	app.post("/api/restaurant/rating", async (req, res) => {
 		//Query: keyword
 		const { name, value } = req.body;

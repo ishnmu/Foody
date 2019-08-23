@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require('body-parser');
 
 const config = require("./config");
+const utils = require("./utils");
 
 const Restaurants = require("./data/Restaurants"); // Stub Data
 
@@ -16,6 +17,6 @@ app.use(bodyParser.json());
 
 // search router
 require("./routes/search")({ app, Restaurants });
-require("./routes/rating")({ app });
+require("./routes/rating")({ app, Restaurants, utils });
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
