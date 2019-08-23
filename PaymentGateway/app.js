@@ -17,6 +17,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Transactions
-require("./routes/transaction")({ app, Transactions });
+require("./routes/transaction")({ app, Transactions, uuid });
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
