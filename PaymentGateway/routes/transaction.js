@@ -27,14 +27,18 @@ module.exports = function ({ app, uuid, Transactions = [] }) {
 		try {
 			const { amount, mode, context } = req.body;
 			if (amount && mode && context) {
-				let transaction = new TransactionEntity(uuid(), amount);
-				transaction[`make${mode}Payment`](context);
-				Transactions.push(transaction);
-				return res.send(transaction);
+				if (mode === "UPI" || mode === "CARD" || mode === "NETBANKING") {
+					let transaction = new TransactionEntity(uuid(), amount);
+					transaction[`make${mode}Payment`](context);
+					Transactions.push(transaction);
+					return res.send(transaction);
+				}
+				return res.status(400).send({ message: "invalid / unsupported mode of payment" });
 			}
 			return res.status(400).send({ message: "any one of amount, mode, context is missing" });
 		}
 		catch (e) {
+			if (e.message === "InvalidContextException") return res.status(400).send({ message: "Some properties in context is missing", error: e.message });
 			return res.status(500).send({ message: e.message });
 		}
 	});

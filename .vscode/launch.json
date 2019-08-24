@@ -8,7 +8,7 @@
 			"type": "node",
 			"request": "launch",
 			"name": "Launch Program",
-			"program": "${workspaceFolder}\\ExperienceAPIs\\app.js"
+			"program": "${workspaceFolder}\\PaymentGateway\\app.js"
 		}
 	]
 }
