@@ -1,5 +1,5 @@
 # Foody
-_A Simple Food Ordering application developed as a part of TaughtWorks Workshop for *Designing Microservices*_
+_A Simple Food Ordering application developed as a part of ThoughtWorks Workshop for *Designing Microservices*_
 
 Application has two independently deployable services (MicroServices)
 	- ExperienceAPIs (Client Facing Service)
